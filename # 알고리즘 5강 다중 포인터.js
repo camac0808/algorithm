@@ -18,8 +18,7 @@ function sumZero(arr) {
 console.log(sumZero([-4, -3, -2, -1, 0, 1, 2, 4]));
 
 // countUniqueValues
-// sorted number array, counts the unique values in the array
-// negative number can be in the array, but also sorted
+// 정렬된 숫자배열, 배열에서 고유값이 몇개 있는지 세기, 음수 있을 수 있음
 
 function countUniqueValues(arr) {
   let i = 0;
@@ -49,6 +48,8 @@ console.log(countUniqueValues([1, 1, 1, 1, 2])); // 2
 console.log(countUniqueValues([1])); // 1
 console.log(countUniqueValues([-2, -1, -1, 0, 1])); // 4
 console.log(countUniqueValues([1, 2, 3, 4, 5, 5, 5, 12, 13, 14, 14])); // 8
+
+
 
 // arr[i]의 값을 바꾸면서 올라가는 방법
 function AnotherCountUniqueValues(arr) {

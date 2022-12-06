@@ -41,7 +41,7 @@ function anotherSame(arr1, arr2) {
     object1[value] = ++object1[value] || 1;
   }
   for (let value of arr2) {
-    object2[value] = ++object2[value] || 1;
+    object2[value] ? object2[value] += 1 : object2[value] = 1;
   }
   console.log(object1);
   console.log(object2);
@@ -64,6 +64,8 @@ function anotherSame(arr1, arr2) {
 }
 
 anotherSame([1, 2, 3, 2], [1, 4, 9, 4]); // true
+
+
 
 // 두 문자열 받아서 비교하기 - 아나그램
 // 빈도수 세기로 풀기
