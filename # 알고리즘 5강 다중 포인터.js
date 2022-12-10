@@ -19,7 +19,6 @@ console.log(sumZero([-4, -3, -2, -1, 0, 1, 2, 4]));
 
 // countUniqueValues
 // 정렬된 숫자배열, 배열에서 고유값이 몇개 있는지 세기, 음수 있을 수 있음
-
 function countUniqueValues(arr) {
   let i = 0;
   let count = 1;
