@@ -1,0 +1,66 @@
+function power(num, pow) {
+  // base case
+  if (pow === 0) return 1;
+  // recursion case
+  return num * power(num, pow-1)
+}
+
+console.log('power', power(2, 0)); // 1
+console.log('power', power(2, 2)); // 4
+console.log('power', power(2, 4)); // 16
+
+function factorial(num) {
+  if (num < 0) return 0;
+  // base case
+  if (num <= 1) return 1;
+  // recursion case
+  return num * factorial(num - 1);
+}
+
+console.log('factorial', factorial(1)); // 1
+console.log('factorial', factorial(2)); // 2
+console.log('factorial', factorial(4)); // 24
+console.log('factorial', factorial(7)); // 5040
+
+function productOfArray(arr) {
+  // base case
+  if (arr.length === 0) return 1;
+  // recursion case
+  return arr[0] * productOfArray(arr.slice(1))
+}
+
+console.log('productOfArray', productOfArray([1,2,3])); // 6
+console.log('productOfArray', productOfArray([1,2,3,10])); // 60
+
+
+function recursiveRange(num){
+  // base case
+  if (num === 1) return 1;
+  // recursive case
+  return num + recursiveRange(num - 1);
+}
+
+console.log('recursiveRange', recursiveRange(6)); // 21
+console.log('recursiveRange', recursiveRange(10)); // 55
+
+
+
+function fib(num){
+  // base case
+  if (num <= 2) return 1;
+  // recursion case
+  return fib(num - 1) + fib(num - 2);
+}
+
+// 1, 1, 2, 3, 5, 8, 13, ...
+console.log('fib', fib(4)) // 3
+console.log('fib', fib(10)) // 55
+console.log('fib', fib(28)) // 317811
+console.log('fib', fib(35)) // 9227465
+
+function reverse(str){
+  
+}
+
+// reverse('awesome') // 'emosewa'
+// reverse('rithmschool') // 'loohcsmhtir'
