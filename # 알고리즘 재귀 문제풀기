@@ -59,8 +59,69 @@ console.log('fib', fib(28)) // 317811
 console.log('fib', fib(35)) // 9227465
 
 function reverse(str){
-  
+  // base case
+  if (str.length <= 1) return str; 
+  // recursion case
+  return reverse(str.slice(1)) + str[0];
 }
 
+console.log('reverse', reverse('awesome'));
+console.log('reverse', reverse('rithmschool'));
 // reverse('awesome') // 'emosewa'
 // reverse('rithmschool') // 'loohcsmhtir'
+
+
+
+function isPalindrome(str){
+  // base case
+  if (str[0] !== str[str.length - 1]) return false;
+  if (str.length <= 1) return true;
+  // recursion case
+  return isPalindrome(str.slice(1, -1));
+}
+
+console.log('isPalindrome', isPalindrome('awesome')) // false
+console.log('isPalindrome', isPalindrome('tacocat')) // true
+console.log('isPalindrome', isPalindrome('amanaplanacanalpanama')) // true
+console.log('isPalindrome', isPalindrome('amanaplanacanalpandemonium')) // false
+
+// SAMPLE INPUT / OUTPUT
+// const isOdd = val => val % 2 !== 0;
+
+// someRecursive([1,2,3,4], isOdd) // true
+// someRecursive([4,6,8,9], isOdd) // true
+// someRecursive([4,6,8], isOdd) // false
+// someRecursive([4,6,8], val => val > 10); // false
+
+const isOdd = (val) => val % 2 !== 0; // 홀수
+
+function someRecursive(arr, func){
+  // base case
+  if (arr.length === 0) return false;
+  if (func(arr[0])) return true;
+  // recursion case
+  return someRecursive(arr.slice(1), func)
+}
+
+console.log('someRecursive', someRecursive([1,2,3,4], isOdd));
+console.log('someRecursive', someRecursive([4,6,8,9], isOdd));
+console.log('someRecursive', someRecursive([4,6,8], isOdd));
+console.log('someRecursive', someRecursive([4,6,8], val => val > 10));
+
+function flatten(arr){
+  let newArr = [];
+  
+  for (const i of arr) {
+    if (Array.isArray(i) === true) {
+      newArr = newArr.concat(flatten(i));
+    } else if (Array.isArray(i) === false) {
+      newArr.push(i);
+    }
+  }
+  return newArr;
+}
+
+console.log(flatten([1, 2, 3, [4, 5]])) // [1, 2, 3, 4, 5]
+// flatten([1, [2, [3, 4], [[5]]]]) // [1, 2, 3, 4, 5]
+// flatten([[1],[2],[3]]) // [1,2,3]
+// flatten([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]) // [1,2,3]

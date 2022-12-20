@@ -1,0 +1,7 @@
+// Linear search
+// indexOf, includes, find, findIndex 자바스크립트 내장 검색 함수
+
+// indexOf 구현해보기 
+function linearSearch(){
+  
+}
