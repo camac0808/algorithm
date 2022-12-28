@@ -146,9 +146,19 @@ console.log(capitalizeFirst(["car", "taco", "banana"])); // ['Car','Taco','Banan
 
 
 // 객체가 포함된 짝수의 합을 구하시오 
-
-function nestedEvenSum () {
-  // add whatever parameters you deem necessary - good luck!
+function nestedEvenSum (obj) {
+  let sum = 0;
+  for (let i in obj) {
+    if (typeof(obj[i]) === 'object') {
+      sum = sum + nestedEvenSum(obj[i]);
+    }
+    else if (typeof(obj[i]) === 'number') {
+      if (obj[i] % 2 === 0) {
+        sum += obj[i];
+      }
+    }
+  }
+  return sum;
 }
 
 
@@ -172,5 +182,112 @@ var obj2 = {
   e: {e: {e: 2}, ee: 'car'}
 };
 
-nestedEvenSum(obj1); // 6
+console.log(nestedEvenSum(obj1)); // 6
 nestedEvenSum(obj2); // 10
+
+
+// 문자가 담긴 배열을 파라미터로 보내고 대문자로 바꾸세요
+function capitalizeArray(arr) {
+  let newArr = [];
+  // base case
+  if (arr.length === 0) return newArr;
+  
+  // recursive case
+  if (arr.length > 0) {
+    newArr.push(arr[0].toUpperCase());
+    return newArr = newArr.concat(capitalizeArray(arr.slice(1)));
+  }
+}
+
+console.log(capitalizeArray(['apple', 'orange', 'banana'])); // [ 'APPLE', 'ORANGE', 'BANANA' ]
+
+
+
+// 객체를 넣어서 숫자를 다 문자로 바꾸세요
+
+function stringifyNumbers(obj) {
+  let newObj = {};
+
+  for (let key in obj) {
+      let value = obj[key];
+
+      if (typeof(value) === 'object' && !Array.isArray(value)) {
+        newObj[key] = stringifyNumbers(value);
+      }
+
+      else if (typeof(value) === 'number') {
+        newObj[key] = value.toString();
+      }
+      else {
+        newObj[key] = value
+      }
+  }
+  return newObj;
+}
+
+/*
+let obj = {
+    num: 1,
+    test: [],
+    data: {
+        val: 4,
+        info: {
+            isRight: true,
+            random: 66
+        }
+    }
+}
+/*
+/*
+{
+    num: "1",
+    test: [],
+    data: {
+        val: "4",
+        info: {
+            isRight: true,
+            random: "66"
+        }
+    }
+}
+*/
+
+
+// 객체를 받고 문자열만 추출해서 배열을 리턴한다 
+
+function collectStrings(obj) {
+  let arr = [];
+
+  for (const key in obj) {
+    let value = obj[key];
+
+    if (typeof(value) == "string") {
+      arr.push(value);
+    }
+    // recurse
+    else if (typeof(value) == "object") {
+      arr = arr.concat(collectStrings(value))
+    }
+    // base case
+  }
+  return arr;
+}
+
+const obj = {
+  stuff: "foo",
+  data: {
+      val: {
+          thing: {
+              info: "bar",
+              moreInfo: {
+                  evenMoreInfo: {
+                      weMadeIt: "baz"
+                  }
+              }
+          }
+      }
+  }
+}
+
+console.log(collectStrings(obj)) // ["foo", "bar", "baz"])
+
