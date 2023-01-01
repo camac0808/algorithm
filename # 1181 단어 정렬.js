@@ -6,6 +6,7 @@ sort_list = new Set(filterNumber)
 let arr = [...sort_list]
 // let arr = Array.from(new Set(filterNumber))
 
+// 숫자를 정렬하거나 단어를 길이순으로 정렬할 때는 이 방식으로 해줘야 한다.
 console.log(arr.sort((a,b) => {
   // 길이순 정리
   if (a.length > b.length) return 1
