@@ -47,6 +47,7 @@ function anotherSame(arr1, arr2) {
   console.log(object2);
 
   // object1 의 key값이 나옴 1, 2, 3
+  // 두 객체의 key값이 같은지 확인한다
   for (let key in object1) {
     let square = key ** 2;
     // object2 안에 제곱key가 없다면
@@ -55,7 +56,7 @@ function anotherSame(arr1, arr2) {
       console.log("hasOwnProperty");
       return false;
     }
-    // 갯수가 같아야한다
+    // 같다면 value값도 같은지 확인한다
     if (object1[key] !== object2[square]) {
       return false;
     }
@@ -95,3 +96,59 @@ function validAnagram(str1, str2) {
 }
 
 console.log(validAnagram("anagram", "nagaram"))
+
+
+
+// 복습
+function counting(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
+
+  let newArr1 = {};
+  let newArr2 = {};
+  for (const val of arr1) {
+    newArr1[val] = newArr1.hasOwnProperty(val) ? ++newArr1[val] : 1;
+    // newArr1[val] = ++newArr1[val] || 1;
+    // newArr1[val] ? newArr1[val] += 1 : newArr1[val] = 1;
+  }
+  for (const val of arr2) {
+    newArr2[val] = newArr2.hasOwnProperty(val) ? ++newArr2[val] : 1;
+  }
+
+  for (const key in newArr1) {
+    if (Object.hasOwnProperty.call(newArr1, key)) {
+      const value = newArr1[key];
+      let square = key ** 2;
+      if (!newArr2.hasOwnProperty(square)) {
+        return false;
+      }
+      if (newArr1[key] !== newArr2[square]) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+console.log(counting([1,2,3], [9,4,1]));
+
+
+function anagramCount(str1, str2) {
+  if (str1.length !== str2.length) return false;
+  let obj1 = {};
+  for (const key of str1) {
+    obj1[key] ? obj1[key] += 1 : obj1[key] = 1;
+  }
+  for (const i of str2) {
+    if (!obj1[i]) {
+      return false;
+    } else {
+      obj1[i] -= 1;
+    }
+  }
+  return true;
+}
+
+console.log(anagramCount('', '')); // true;
+console.log(anagramCount('aaz', 'zza')); // false
+console.log(anagramCount("anagram", "nagaram")); // true;
+ 
