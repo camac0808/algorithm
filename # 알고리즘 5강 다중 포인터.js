@@ -2,15 +2,14 @@
 function sumZero(arr) {
   let left = 0;
   let right = arr.length - 1;
-
   while (left < right) {
     let sum = arr[left] + arr[right];
     if (sum === 0) {
       return [arr[left], arr[right]];
-    } else if (sum > 0) {
-      right--;
-    } else {
+    } else if (sum < 0) {
       left++;
+    } else {
+      right--;
     }
   }
 }
@@ -20,27 +19,19 @@ console.log(sumZero([-4, -3, -2, -1, 0, 1, 2, 4]));
 // countUniqueValues
 // 정렬된 숫자배열, 배열에서 고유값이 몇개 있는지 세기, 음수 있을 수 있음
 function countUniqueValues(arr) {
+  if (arr.length === 0) return 0;
+  if (arr.length === 1) return 1;
   let i = 0;
-  let count = 1;
-
-  // if there is no values in array, or only one value
-  if (arr.length === 0) {
-    return 0;
-  } else if (arr.length === 1) {
-    return 1;
-  }
-  // while arr[i] to the end
-  while (i < arr.length) {
-    // compare each numbers and if negative then count + 1
-    if (arr[i] - arr[i + 1] < 0) {
-      count++;
+  let j = 1;
+  while (j < arr.length) {
+    if (arr[i] !== arr[j]) {
       i++;
-    } else {
-      // if not, just progress i++
-      i++;
+      arr[i] = arr[j];
+    } else if (arr[i] === arr[j]) {
+      j++;
     }
   }
-  return count;
+  return i+1;
 }
 
 console.log(countUniqueValues([1, 1, 1, 1, 2])); // 2

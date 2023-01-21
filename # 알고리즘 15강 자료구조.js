@@ -103,13 +103,12 @@ class SinglyLinkedList {
   }
   shift() {
     if (!this.head) return undefined;
-    let current = this.head;
-    this.head = current.next; // head에 첫번째 값을 제외하고 next 값을 넣는다
+    this.head = this.head.next; 
     this.length--;
     if (this.length == 0) {
       this.tail = null;
     }
-    return current;
+    return this;
   }
   unshift(val) {
     let newNode = new Node(val);
@@ -123,13 +122,47 @@ class SinglyLinkedList {
     this.length++;
     return this;
   }
+  get(index) {
+    // while 루프를 통해 next를 반복시킨다
+    // counter를 하나씩 증가시킨다
+    // counter가 원하는 인덱스값에 도달했을때 값을 반환한다
+    if (index < 0 || index >= this.length) return null;
+    let current = this.head;
+    let counter = 0;
+    while (counter !== index) {
+      current = current.next;
+      counter++;
+    }
+    return current;
+  }
+  set(val, index) {
+    let foundNode = this.get(index)
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+    return false;
+  }
+  insert(val, index) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) return this.push(val);
+    if (index === 0) return this.unshift(val);
+    let insertNode = new Node(val)
+    let prevNode = this.get(index-1); 
+    let afterNode = prevNode.next;
+    prevNode.next = insertNode;
+    insertNode.next = afterNode;
+    this.length++;
+    return true;
+  }
 }
 
 let list = new SinglyLinkedList();
 list.push(1);
 list.push(2)
-list.push(3)
-list.unshift(0);
+list.push(4)
+list.insert(3, 2)
+list.insert(0, 0)
 console.log(list);
 
 
