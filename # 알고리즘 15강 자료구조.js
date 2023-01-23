@@ -7,7 +7,7 @@ class Student {
     this.age = age;
     this.grade = year;
     this.scores = [];
-    this.late = 0; 
+    this.late = 0;
   }
   // 인스턴스 메소드
   showInfo() {
@@ -31,18 +31,18 @@ class Student {
 }
 
 const student1 = new Student("김철수", 20, 1);
-console.log(student1.name)
-console.log(student1.age)
-console.log(student1.grade)
-console.log(student1.lateAtSchool())
-console.log(student1.lateAtSchool())
-console.log(student1.lateAtSchool())
+console.log(student1.name);
+console.log(student1.age);
+console.log(student1.grade);
+console.log(student1.lateAtSchool());
+console.log(student1.lateAtSchool());
+console.log(student1.lateAtSchool());
 
-console.log(student1.showInfo())
-console.log(student1.addScores(100))
-console.log(student1.addScores(90))
-console.log(student1.addScores(80))
-console.log(student1.average())
+console.log(student1.showInfo());
+console.log(student1.addScores(100));
+console.log(student1.addScores(90));
+console.log(student1.addScores(80));
+console.log(student1.average());
 
 // Singly linked list
 // 리스트는 인덱스가 없이 데이터를 저장하는 자료구조
@@ -103,7 +103,7 @@ class SinglyLinkedList {
   }
   shift() {
     if (!this.head) return undefined;
-    this.head = this.head.next; 
+    this.head = this.head.next;
     this.length--;
     if (this.length == 0) {
       this.tail = null;
@@ -116,7 +116,7 @@ class SinglyLinkedList {
       this.head = newNode;
       this.tail = this.head;
     } else {
-      newNode.next = this.head; // pointer to the next (newNode => head) 
+      newNode.next = this.head; // pointer to the next (newNode => head)
       this.head = newNode;
     }
     this.length++;
@@ -126,7 +126,7 @@ class SinglyLinkedList {
     // while 루프를 통해 next를 반복시킨다
     // counter를 하나씩 증가시킨다
     // counter가 원하는 인덱스값에 도달했을때 값을 반환한다
-    if (index < 0 || index >= this.length) return null;
+    if (index < 0 || index >= this.length) return false;
     let current = this.head;
     let counter = 0;
     while (counter !== index) {
@@ -147,8 +147,8 @@ class SinglyLinkedList {
     if (index < 0 || index > this.length) return false;
     if (index === this.length) return this.push(val);
     if (index === 0) return this.unshift(val);
-    let insertNode = new Node(val)
-    let prevNode = this.get(index-1); 
+    let insertNode = new Node(val);
+    let prevNode = this.get(index - 1);
     let afterNode = prevNode.next;
     prevNode.next = insertNode;
     insertNode.next = afterNode;
@@ -159,10 +159,9 @@ class SinglyLinkedList {
 
 let list = new SinglyLinkedList();
 list.push(1);
-list.push(2)
-list.push(4)
-list.insert(3, 2)
-list.insert(0, 0)
+list.push(2);
+list.push(4);
+list.insert(3, 2);
+list.insert(0, 0);
 console.log(list);
-
 
