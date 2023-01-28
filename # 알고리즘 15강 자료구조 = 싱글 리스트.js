@@ -72,7 +72,7 @@ class SinglyLinkedList {
       this.tail = this.head;
     } else {
       this.tail.next = newNode; // tail의 next에 newNode를 연결
-      this.tail = newNode; // tail을 newNode로 변경
+      this.tail = newNode;
     }
     this.length++;
     return this;
@@ -155,13 +155,51 @@ class SinglyLinkedList {
     this.length++;
     return true;
   }
+  remove(index) {
+    if (index < 0 || index > this.length) return false;
+    if (index === this.length) return this.pop();
+    if (index === 0) return this.shift();
+
+    let prevNode = this.get(index - 1);
+    let removed = prevNode.next;
+    prevNode.next = removed.next;
+    this.length--;
+    if (this.length === 0) return null;
+    return true;
+  }
+  reverse() {
+    // tail head prev next
+    // tail과 head를 바꾼다
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+    
+    let prev = null;
+    let next;
+
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+    return this;
+  }
+  print() {
+    let current = this.head;
+    let arr = []
+    while (current) {
+      arr.push(current.val)
+      current = current.next;
+    }
+    console.log(arr);
+  }
 }
 
 let list = new SinglyLinkedList();
 list.push(1);
 list.push(2);
-list.push(4);
-list.insert(3, 2);
-list.insert(0, 0);
-console.log(list);
-
+list.push(3);
+list.push(4)
+list.reverse();
+list.print()
