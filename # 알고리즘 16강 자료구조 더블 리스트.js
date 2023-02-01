@@ -45,13 +45,6 @@ class DoubleLinkedList {
     return poppedNode;
   }
   shift() {
-    // length === 0 이면 return undefined
-    // length === 1 이면 head tail = null
-    // this.head를 next값으로 바꾼다
-    // 기존 head.next = null
-    // head.next.prev = null
-    // length--;
-    // return old head
     if (this.length === 0) return undefined;
     let oldHead = this.head;
 
@@ -143,6 +136,39 @@ class DoubleLinkedList {
     this.length--;
     return true;
   }
+  reverse(){
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+
+    let prev = null;
+    let next;
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+    next = null;
+    prev = null;
+    node = this.head;
+    for (let i = 0; i < this.length; i++) {
+      next = node.next;
+      node.prev = prev;
+      prev = node;
+      node = next;
+    }
+    return this;
+  }
+  print(){
+    let arr=[]
+    let current = this.head;
+    while (current){
+      arr.push(current.val);
+      current = current.next;
+    }
+    console.log(arr)
+  }
 }
 
 let list = new DoubleLinkedList();
@@ -151,7 +177,7 @@ list.push(2);
 list.push(3);
 list.push(4);
 list.push(5);
-list.remove(0);
+list.reverse();
 
-
+list.print()
 console.log(list);

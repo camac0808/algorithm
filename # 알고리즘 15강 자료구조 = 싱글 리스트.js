@@ -194,6 +194,7 @@ class SinglyLinkedList {
     }
     console.log(arr);
   }
+  
 }
 
 let list = new SinglyLinkedList();
