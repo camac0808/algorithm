@@ -2,7 +2,6 @@
 // Max Binary Heap 부모가 자식보다 무조건 크다 (왼쪽 오른쪽 순서 상관없이)
 // Min Binary Heap 자식이 부모보다 무조건 크다
 
-
 class BinaryHeap {
   constructor() {
     this.values = [99, 20, 15, 30, 40, 60];
@@ -44,12 +43,14 @@ class BinaryHeap {
       let leftChild = this.values[leftChildIndex];
       let rightChild = this.values[rightChildIndex];
       console.log(this.values, leftChildIndex, this.values.length);
-      
+
       if (leftChildIndex < this.values.length) {
         if (rightChild === undefined) {
           rightChild = 0;
         }
-        leftChild > rightChild ? largerSiblingIndex = leftChildIndex : largerSiblingIndex = rightChildIndex;
+        leftChild > rightChild
+          ? (largerSiblingIndex = leftChildIndex)
+          : (largerSiblingIndex = rightChildIndex);
         if (element > this.values[largerSiblingIndex]) break;
         this.values[index] = this.values[largerSiblingIndex];
         this.values[largerSiblingIndex] = element;
@@ -74,7 +75,7 @@ console.log(heap.values);
 class Node {
   constructor(value, priority) {
     this.value = value;
-    this.priority = priority
+    this.priority = priority;
   }
 }
 
@@ -82,7 +83,65 @@ class PriorityQueue {
   constructor() {
     this.values = [];
   }
-  insert(value, priority) {
-    this.values.push(new Node(value, priority));
+  swap(index1, index2) {
+    [this.values[index1], this.values[index2]] = [this.values[index2], this.values[index1]];
+  }
+  enqueue(value, priority) {
+    let newNode = new Node(value, priority);
+    this.values.push(newNode);
+    let index = this.values.length - 1;
+
+    // bubble up
+    while (index > 0) {
+      let parentIndex = Math.floor((index - 1) / 2);
+      let parent = this.values[parentIndex];
+      let element = this.values[index];
+      if (parent.priority < element.priority) {
+        this.swap(index, parentIndex);
+        index = parentIndex;
+      } else {
+        break;
+      }
+    }
+  }
+  dequeue() {
+    let index = 0;
+    this.values[index] = this.values.pop();
+
+    // sink down
+    while (true) {
+      let element = this.values[index];
+      let leftChildIndex = index * 2 + 1;
+      let rightChildIndex = index * 2 + 2;
+      let largerChildIndex;
+
+      let leftChild = this.values[leftChildIndex];
+      let rightChild = this.values[rightChildIndex];
+
+      if (leftChildIndex < this.values.length) {
+        if (rightChild === undefined) {
+          rightChild.priority = 0;
+        }
+        leftChild.priority > rightChild.priority
+          ? (largerChildIndex = leftChildIndex)
+          : (largerChildIndex = rightChildIndex);
+        if (element.priority > this.values[largerChildIndex].priority) break;
+        this.swap(index, largerChildIndex);
+        index = largerChildIndex;
+      } else {
+        break;
+      }
+    }
   }
 }
+
+let priorityQueue = new PriorityQueue();
+priorityQueue.enqueue(2, 4);
+priorityQueue.enqueue(55, 2);
+priorityQueue.enqueue(1, 5);
+priorityQueue.enqueue(20, 3);
+priorityQueue.enqueue(15, 1);
+console.log(priorityQueue.values);
+
+priorityQueue.dequeue();
+console.log(priorityQueue.values);
