@@ -31,7 +31,7 @@ function hash(key, arrayLen) {
 // Hash Table set/get
 
 class HashTable {
-  constructor(size=5) {
+  constructor(size = 5) {
     this.size = size;
     this.table = new Array(size);
   }
@@ -55,7 +55,7 @@ class HashTable {
     if (!this.table[index]) {
       this.table[index] = [];
     }
-    this.table[index].push([key, value]); 
+    this.table[index].push([key, value]);
   }
 
   get(key) {
@@ -67,20 +67,47 @@ class HashTable {
     let index = this.hash(key);
     if (!this.table[index]) {
       return undefined;
-    } 
+    }
     for (let value of this.table[index]) {
       if (value[0] === key) {
         return value[1];
       }
     }
   }
+  values() {
+    let valuesArr = [];
+    for (let i = 0; i < this.table.length; i++) {
+      if (this.table[i]) {
+        for (let j = 0; j < this.table[i].length; j++) {
+          if (!valuesArr.includes(this.table[i][j][1])) {
+            valuesArr.push(this.table[i][j][1]);
+          }
+        }
+      }
+    }
+    return valuesArr;
+  }
+  keys() {
+    let keysArr = [];
+    for (let i = 0; i < this.table.length; i++) {
+      if (this.table[i]) {
+        for (let j = 0; j < this.table[i].length; j++) {
+          if (!keysArr.includes(this.table[i][j][0])) {
+            keysArr.push(this.table[i][j][0]);
+          }
+        }
+      }
+    }
+    return keysArr;
+  }
 }
 
 let hashTable = new HashTable();
-hashTable.set("hello", "world")
-hashTable.set("abc", "worddd")
-hashTable.set("ddd", "worddd")
-hashTable.set("hel", "worddd")
-hashTable.set("hell", "worl")
+hashTable.set("hello", "world");
+hashTable.set("abc", "worddd");
+hashTable.set("abc", "worddd");
+hashTable.set("abc", "worddd");
+hashTable.set("hell", "worl");
 console.log(hashTable.table);
-console.log(hashTable.get("hellooo"));
+console.log(hashTable.values());
+console.log(hashTable.keys());
