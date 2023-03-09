@@ -26,15 +26,68 @@ class Graph {
       this.removeEdge(vertex, removedValue);
     }
   }
-  // Depth First Recursive
+  // Depth First Recursive 깊이 우선 순회 재귀형
   DFR(start){
     let result = [];
     let visited = {};
+    const adjacencyList = this.adjacencyList;
+    
     (function dfs(vertex) {
-      if(!vertex) return null;
+      if (!vertex) return null;
       visited[vertex] = true;
       result.push(vertex);
+      adjacencyList[vertex].forEach(neighbor => {
+        if (!visited[neighbor]) {
+          return dfs(neighbor);
+        }
+      })
     })(start)
+
+    return result;
+  }
+  // Depth first Iterative 순환형
+  DFI(start) {
+    const visited = {};
+    const result = [];
+    const stack = [start];
+    let currentVertex;
+
+    visited[start] = true;
+
+    while (stack.length) {
+      currentVertex = stack.pop(); // A 
+      console.log(stack);
+      result.push(currentVertex);
+      
+      this.adjacencyList[currentVertex].forEach(neighbor => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          stack.push(neighbor);
+        }
+      })
+    }
+    return result;
+  }
+  // Breadth First Search 너비 우선 탐색
+  BFS(start) {
+    const queue = [start];
+    const result = [];
+    const visited = {};
+
+    visited[start] = true;
+
+    while (queue.length) {
+      let currentVertex = queue.shift()
+      result.push(currentVertex);
+
+      this.adjacencyList[currentVertex].forEach(neighbor => {
+        if (!visited[neighbor]) {
+          visited[neighbor] = true;
+          queue.push(neighbor);
+        }
+      })
+    }
+    return result;
   }
 }
 
@@ -43,9 +96,16 @@ g.addVertex("A");
 g.addVertex("B");
 g.addVertex("C");
 g.addVertex("D");
+g.addVertex("E");
+g.addVertex("F");
 g.addEdge("A", "B");
 g.addEdge("A", "C");
-g.addEdge("D", "C");
-g.removeVertex("A");
-g.removeVertex("D")
+g.addEdge("B", "D");
+g.addEdge("C", "E");
+g.addEdge("D", "E");
+g.addEdge("D", "F");
+g.addEdge("E", "F");
 console.log(g);
+console.log(g.DFR("A"));
+console.log(g.DFI("A"));
+console.log(g.BFS("A"));
