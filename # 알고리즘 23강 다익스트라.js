@@ -4,7 +4,7 @@
 
 // 최단거리 찾기
 class PriorityQueue {
-  constructor(params) {
+  constructor() {
     this.values = [];
   }
   enqueue(val, priority) {
@@ -32,50 +32,50 @@ class WeightedGraph {
     this.adjacencyList[vertex1].push({ node: vertex2, weight });
     this.adjacencyList[vertex2].push({ node: vertex1, weight });
   }
-  Dijkstra(start, finish) {
-    let adjacencyList = this.adjacencyList;
-    const nodes = new PriorityQueue();
+  Dijkstra(start, end) {
+    const adjacenyList = this.adjacencyList;
+    const queue = new PriorityQueue();
     const distances = {};
     const previous = {};
-    let smallest;
     let path = [];
-
-    // 초기값을 설정해준다
-    // distances = {A: 0, B: Infinity, C: Infinity, D: Infinity, E: Infinity, F: Infinity}
-    for (let vertex in adjacencyList) {
+    let smallest;
+    // 초기값 설정 (시작점은 0, 나머지는 무한대)
+    for (let vertex in adjacenyList) {
       if (vertex === start) {
         distances[vertex] = 0;
-        nodes.enqueue(vertex, 0);
+        queue.enqueue(vertex, 0);
       } else {
         distances[vertex] = Infinity;
-        nodes.enqueue(vertex, Infinity);
+        queue.enqueue(vertex, Infinity);
       }
       previous[vertex] = null;
     }
-    // 방문할 것이 남아있다면
-    while (nodes.values.length) {
-      smallest = nodes.dequeue().val;
-      if (smallest === finish) {
-        // We Are Done
-        while(previous[smallest]) {
-          console.log(smallest);
-          path.push(smallest); // E
-          smallest = previous[smallest]; // F
+
+    // 큐가 빌 때까지 반복
+    while (queue.values.length) {
+      smallest = queue.dequeue().val;
+      if (smallest === end) {
+        // loop end!
+        while (previous[smallest]){
+          path.push(smallest);
+          smallest = previous[smallest];
         }
-        // A로 가면 null뜨면서 break
-        break;
+        break
       }
       if (smallest || distances[smallest] !== Infinity) {
-        adjacencyList[smallest].forEach((neighbor) => {
-          let nextNode = neighbor;
-          console.log(nextNode);
+        for (let neighbor in adjacenyList[smallest]) {
+          let nextNode = adjacenyList[smallest][neighbor];
+          console.log('smallest', smallest, 'distances', distances);
+          // 최단 거리 계산
           let candidate = distances[smallest] + nextNode.weight;
           if (candidate < distances[nextNode.node]) {
-            distances[nextNode.node] = candidate; 
+            distances[nextNode.node] = candidate;
             previous[nextNode.node] = smallest;
-            nodes.enqueue(nextNode.node, candidate);
+            console.log('nextNode', nextNode.node, 'candidate', candidate);
+            queue.enqueue(nextNode.node, candidate);
+            console.log('queue', queue.values);
           }
-        });
+        }
       }
     }
     return path.concat(smallest).reverse();

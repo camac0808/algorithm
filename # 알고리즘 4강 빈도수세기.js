@@ -41,6 +41,7 @@ function anotherSame(arr1, arr2) {
     object1[value] = ++object1[value] || 1;
   }
   for (let value of arr2) {
+    // object2[value] = (object2[value] || 0) + 1
     object2[value] ? object2[value] += 1 : object2[value] = 1;
   }
   console.log(object1);
